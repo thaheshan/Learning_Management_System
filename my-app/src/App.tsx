@@ -1,6 +1,59 @@
-import React, { useState } from 'react';
-import { Search, GraduationCap, LayoutDashboard, Database, ClipboardList, Library, Store, Settings, LogOut, Trophy, Users, School, ChevronRight, ChevronDown, Mail, Bell, Sun, Moon } from 'lucide-react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import React from 'react';
+import {
+  Box,
+  ChakraProvider,
+  Container,
+  Flex,
+  Image,
+  Input,
+  Text,
+  VStack,
+  HStack,
+  Avatar,
+  Heading,
+  Icon,
+  Card,
+  CardBody,
+  SimpleGrid,
+  CircularProgress,
+  CircularProgressLabel,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconProps,
+} from '@chakra-ui/react';
+
+import {
+  Search,
+  GraduationCap,
+  LayoutDashboard,
+  Database,
+  ClipboardList,
+  Library,
+  Store,
+  Settings,
+  LogOut,
+  Trophy,
+  Users,
+  School,
+  ChevronRight,
+  ChevronDown,
+  Mail,
+} from 'lucide-react';
+
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
 
 const data = [
   { name: '1', value: 1000 },
@@ -11,353 +64,379 @@ const data = [
   { name: '6', value: 800 },
 ];
 
-const pieData = [
-  { name: 'Staffs', value: 151, color: '#EF4444' },
-  { name: 'Students1', value: 100, color: '#22C55E' },
-  { name: 'Students2', value: 100, color: '#3B82F6' },
-  { name: 'Students3', value: 200, color: '#06B6D4' }
-];
+const Sidebar = () => (
+  <Box w="250px" bg="white" p={4} borderRight="1px" borderColor="gray.200" height="100vh">
+    <VStack spacing={8} align="stretch" height="100%">
+      <Box>
+        <Image
+          src="https://images.pexels.com/photos/3747463/pexels-photo-3747463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+          alt="Logo"
+          h="50px"
+          objectFit="cover"
+          borderRadius="md"
+          cursor="pointer"
+        />
+      </Box>
 
-export default function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+      <VStack spacing={4} align="stretch" flex="1">
+        <HStack spacing={3} color="blue.500" p={2} bg="blue.50" borderRadius="md" cursor="pointer">
+          <Icon as={LayoutDashboard} />
+          <Text fontWeight="medium">Dashboard</Text>
+        </HStack>
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+        <HStack
+          spacing={3}
+          color="gray.600"
+          p={2}
+          _hover={{ bg: 'gray.50', color: 'blue.500' }}
+          transition="all 0.2s"
+          cursor="pointer"
+        >
+          <Icon as={Database} />
+          <Text>Data Lab</Text>
+        </HStack>
 
-  // Theme colors based on your images
-  const theme = {
-    bg: isDarkMode ? '#1F2937' : '#F9FAFB',
-    cardBg: isDarkMode ? '#374151' : '#FFFFFF',
-    sidebarBg: isDarkMode ? '#111827' : '#FFFFFF',
-    topbarBg: isDarkMode ? '#374151' : '#FFFFFF',
-    footerBg: isDarkMode ? '#374151' : '#FFFFFF',
-    text: isDarkMode ? '#F9FAFB' : '#111827',
-    textSecondary: isDarkMode ? '#9CA3AF' : '#6B7280',
-    border: isDarkMode ? '#4B5563' : '#E5E7EB',
-    hoverBg: isDarkMode ? '#4B5563' : '#F3F4F6',
-    activeBg: isDarkMode ? '#1E40AF' : '#DBEAFE',
-    activeColor: '#3B82F6',
-    inputBg: isDarkMode ? '#4B5563' : '#F9FAFB',
-    chartGrid: isDarkMode ? '#4B5563' : '#E5E7EB',
-    shadow: isDarkMode ? '0 1px 3px 0 rgba(0, 0, 0, 0.3)' : '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
-  };
+        <HStack
+          spacing={3}
+          color="gray.600"
+          p={2}
+          _hover={{ bg: 'gray.50', color: 'blue.500' }}
+          transition="all 0.2s"
+          cursor="pointer"
+        >
+          <Icon as={ClipboardList} />
+          <Text>Surveys</Text>
+        </HStack>
 
-  const TopBar = () => (
-    <div className="fixed top-0 left-64 right-0 h-16 flex items-center justify-between px-8 z-10 border-b" 
-         style={{ backgroundColor: theme.topbarBg, borderColor: theme.border }}>
-      <div className="flex items-center space-x-4">
-        <div className="relative">
-          <Bell size={20} style={{ color: theme.textSecondary }} />
-          <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
-        </div>
-      </div>
-      <div className="flex items-center space-x-6">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search here"
-            className="pl-10 pr-4 py-2 w-80 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            style={{ backgroundColor: theme.inputBg, color: theme.text }}
-          />
-          <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2" style={{ color: theme.textSecondary }} />
-        </div>
-        <button onClick={toggleDarkMode} className="p-2 rounded-md hover:bg-gray-100">
-          {isDarkMode ? <Sun size={20} style={{ color: theme.textSecondary }} /> : <Moon size={20} style={{ color: theme.textSecondary }} />}
-        </button>
-        <div className="relative">
-          <button 
-            onClick={() => setIsProfileOpen(!isProfileOpen)}
-            className="flex items-center space-x-3 hover:bg-gray-50 p-2 rounded-md"
-          >
-            <img 
-              src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg" 
-              alt="Profile" 
-              className="w-8 h-8 rounded-full"
-            />
-            <div className="text-left">
-              <div className="font-medium" style={{ color: theme.text }}>Zulkar Ahamed</div>
-              <div className="text-xs" style={{ color: theme.textSecondary }}>Student</div>
-            </div>
-            <ChevronDown size={16} style={{ color: theme.textSecondary }} />
-          </button>
-          {isProfileOpen && (
-            <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-50" style={{ backgroundColor: theme.cardBg, border: `1px solid ${theme.border}` }}>
-              <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-100" style={{ color: theme.text }}>Profile</a>
-              <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-100" style={{ color: theme.text }}>Settings</a>
-              <a href="#" className="block px-4 py-2 text-sm text-red-500 hover:bg-red-50">Sign Out</a>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+        <HStack
+          spacing={3}
+          color="gray.600"
+          p={2}
+          _hover={{ bg: 'gray.50', color: 'blue.500' }}
+          transition="all 0.2s"
+          cursor="pointer"
+        >
+          <Icon as={Library} />
+          <Text>Library</Text>
+        </HStack>
 
-  const Sidebar = () => (
-    <div className="fixed left-0 top-0 w-64 h-full p-4 border-r" 
-         style={{ backgroundColor: theme.sidebarBg, borderColor: theme.border }}>
-      <div className="flex flex-col h-full">
-        <div className="mb-8">
-          <img 
-            src="https://images.pexels.com/photos/3747463/pexels-photo-3747463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-            alt="Logo" 
-            className="h-12 w-full object-cover rounded-md cursor-pointer"
-          />
-        </div>
-        
-        <div className="flex-1 space-y-2">
-          <div className="flex items-center space-x-3 p-3 rounded-md cursor-pointer" 
-               style={{ backgroundColor: theme.activeBg, color: theme.activeColor }}>
-            <LayoutDashboard size={20} />
-            <span className="font-medium">Dashboard</span>
-          </div>
-          
-          {[
-            { icon: Database, text: 'Data Lab' },
-            { icon: ClipboardList, text: 'Surveys' },
-            { icon: Library, text: 'Library' },
-            { icon: Store, text: 'Market Place' },
-            { icon: Settings, text: 'Settings' }
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="flex items-center space-x-3 p-3 rounded-md cursor-pointer transition-all duration-200 hover:bg-opacity-50"
-              style={{ color: theme.textSecondary }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = theme.hoverBg}
-              onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
-            >
-              <item.icon size={20} />
-              <span>{item.text}</span>
-            </div>
-          ))}
-        </div>
-        
-        <div className="mt-auto">
-          <div className="flex items-center space-x-3 p-3 rounded-md cursor-pointer text-red-500 hover:bg-red-50 transition-all duration-200">
-            <LogOut size={20} />
-            <span>Sign Out</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+        <HStack
+          spacing={3}
+          color="gray.600"
+          p={2}
+          _hover={{ bg: 'gray.50', color: 'blue.500' }}
+          transition="all 0.2s"
+          cursor="pointer"
+        >
+          <Icon as={Store} />
+          <Text>Market Place</Text>
+        </HStack>
 
-  const StatCard = ({ title, value, date }) => (
-    <div className="rounded-lg p-6 border transition-all duration-200 hover:shadow-md" 
-         style={{ backgroundColor: theme.cardBg, borderColor: theme.border }}>
-      <div className="flex flex-col space-y-2">
-        <p className="text-sm" style={{ color: theme.textSecondary }}>{title}</p>
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold" style={{ color: theme.text }}>{value}</span>
-          <GraduationCap size={24} style={{ color: theme.activeColor }} />
-        </div>
-        <p className="text-sm" style={{ color: theme.textSecondary }}>{date}</p>
-      </div>
-    </div>
-  );
+        <HStack
+          spacing={3}
+          color="gray.600"
+          p={2}
+          _hover={{ bg: 'gray.50', color: 'blue.500' }}
+          transition="all 0.2s"
+          cursor="pointer"
+        >
+          <Icon as={Settings} />
+          <Text>Settings</Text>
+        </HStack>
+      </VStack>
 
-  const ActivityLogItem = ({ icon: Icon, title, description, time }) => (
-    <div className="flex items-center space-x-4 p-3 rounded-md transition-all duration-200"
-         style={{ ':hover': { backgroundColor: theme.hoverBg } }}>
-      <div className="p-2 rounded-md" style={{ backgroundColor: isDarkMode ? '#1E40AF' : '#DBEAFE' }}>
-        <Icon size={20} style={{ color: theme.activeColor }} />
-      </div>
-      <div className="flex-1">
-        <p className="font-medium" style={{ color: theme.text }}>{title}</p>
-        <p className="text-sm" style={{ color: theme.textSecondary }}>{description}</p>
-      </div>
-      <span className="text-sm" style={{ color: theme.textSecondary }}>{time}</span>
-    </div>
-  );
+      <Box mt="auto">
+        <HStack
+          spacing={3}
+          color="red.500"
+          p={2}
+          _hover={{ bg: 'red.50' }}
+          cursor="pointer"
+          transition="all 0.2s"
+        >
+          <Icon as={LogOut} />
+          <Text>Sign Out</Text>
+        </HStack>
+      </Box>
+    </VStack>
+  </Box>
+);
 
-  const AuthMethod = ({ icon: Icon, label, value }) => (
-    <div className="flex items-center space-x-3 p-3 rounded-md" style={{ backgroundColor: theme.cardBg, boxShadow: theme.shadow }}>
-      <div className="p-2 rounded-md" style={{ backgroundColor: isDarkMode ? '#1E40AF' : '#DBEAFE' }}>
-        <Icon size={20} style={{ color: theme.activeColor }} />
-      </div>
-      <div>
-        <p className="text-sm" style={{ color: theme.textSecondary }}>{label}</p>
-        <p className="font-bold" style={{ color: theme.text }}>{value}</p>
-      </div>
-    </div>
-  );
+// Add these interfaces above your component definitions
+interface ActivityLogItemProps {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  time: string;
+}
 
-  const Footer = () => (
-    <div className="fixed bottom-0 left-64 right-0 border-t py-4 px-8" 
-         style={{ backgroundColor: theme.footerBg, borderColor: theme.border }}>
-      <div className="flex justify-between items-center">
-        <p className="text-sm" style={{ color: theme.textSecondary }}>
-          © 2025. Made with ❤️ by TheSahan Suresh • Simple for a better web
-        </p>
-        <div className="flex space-x-6">
-          {['Creative Tim', 'Simmmple', 'Blog', 'License'].map((item, index) => (
-            <span key={index} className="text-sm cursor-pointer" style={{ color: theme.textSecondary }}>{item}</span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+interface AuthenticationMethodProps {
+  icon: React.ElementType;
+  label: string;
+  value: string | number;  // Adjust this type based on what values you expect
+}
 
+const DailyActiveUser = () => (
+  <Card variant="outline" bg="white" _hover={{ shadow: 'md' }} transition="all 0.2s" cursor="default">
+    <CardBody>
+      <VStack align="start" spacing={2}>
+        <Text color="gray.500" fontSize="sm">
+          Daily Active User
+        </Text>
+        <HStack spacing={4} w="full">
+          <Text fontSize="2xl" fontWeight="bold">
+            50345
+          </Text>
+          <Icon as={GraduationCap} color="blue.500" />
+        </HStack>
+        <Text color="gray.500" fontSize="sm">
+          18 March 2020
+        </Text>
+      </VStack>
+    </CardBody>
+  </Card>
+);
+
+const ActivityLogItem: React.FC<ActivityLogItemProps> = ({ icon, title, description, time }) => (
+  <HStack spacing={4} p={3} _hover={{ bg: 'gray.50' }} borderRadius="md" transition="all 0.2s">
+    <Box p={2} bg="blue.50" borderRadius="md">
+      <Icon as={icon} color="blue.500" />
+    </Box>
+    <Box flex={1}>
+      <Text fontWeight="medium">{title}</Text>
+      <Text fontSize="sm" color="gray.500">
+        {description}
+      </Text>
+    </Box>
+    <Text fontSize="sm" color="gray.500">
+      {time}
+    </Text>
+  </HStack>
+);
+
+const AuthenticationMethod:  React.FC<AuthenticationMethodProps> = ({ icon, label, value }) => (
+  <HStack spacing={3} bg="white" p={3} borderRadius="md" shadow="sm">
+    <Box p={2} bg="blue.50" borderRadius="md">
+      <Icon as={icon} color="blue.500" />
+    </Box>
+    <VStack spacing={0} align="start">
+      <Text fontSize="sm" color="gray.500">
+        {label}
+      </Text>
+      <Text fontWeight="bold">{value}</Text>
+    </VStack>
+  </HStack>
+);
+
+function App() {
   return (
-    <div className="min-h-screen" style={{ backgroundColor: theme.bg }}>
-      <Sidebar />
-      <TopBar />
-      
-      <div className="flex-1 p-8 ml-64 mt-16 mb-16">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-xl font-semibold mb-2" style={{ color: theme.text }}>Welcome Admin!</h1>
-            <div className="flex items-center space-x-2">
-              <span className="text-sm" style={{ color: theme.textSecondary }}>Home</span>
-              <ChevronRight size={16} style={{ color: theme.textSecondary }} />
-              <span className="text-sm" style={{ color: theme.activeColor }}>Dashboard</span>
-            </div>
-          </div>
-        </div>
+    <ChakraProvider>
+      <Flex minH="100vh" bg="gray.50">
+        <Sidebar />
 
-        <div className="grid grid-cols-3 gap-6 mb-8">
-          <StatCard title="Daily Active User" value="50345" date="18 March 2020" />
-          <StatCard title="Monthly Active User" value="50345" date="18 March 2020" />
-          <StatCard title="Daily Time Per Active User" value="50345" date="18 March 2020" />
-        </div>
+        <Box flex={1} p={8}>
+          <Flex justify="space-between" align="center" mb={8}>
+            <Box>
+              <Heading size="md" mb={2}>
+                Welcome Admin!
+              </Heading>
+              <Breadcrumb spacing="8px" separator={<ChevronRight size={18} />}>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="#" color="gray.500">
+                    Home
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbItem isCurrentPage>
+                  <BreadcrumbLink href="#" color="blue.500">
+                    Dashboard
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </Breadcrumb>
+            </Box>
 
-        <div className="grid grid-cols-2 gap-6 mb-8">
-          <div className="rounded-lg border p-6 transition-all duration-200 hover:shadow-md" 
-               style={{ backgroundColor: theme.cardBg, borderColor: theme.border }}>
-            <div className="flex justify-between mb-4">
-              <span className="font-medium" style={{ color: theme.text }}>User Activity</span>
-              <span className="text-sm" style={{ color: theme.textSecondary }}>01 - 25 March, 2020</span>
-            </div>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data}>
-                  <defs>
-                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.1}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke={theme.chartGrid} />
-                  <XAxis dataKey="name" stroke={theme.textSecondary} />
-                  <YAxis stroke={theme.textSecondary} />
-                  <RechartsTooltip 
-                    contentStyle={{ 
-                      backgroundColor: theme.cardBg,
-                      border: `1px solid ${theme.border}`,
-                      borderRadius: '8px',
-                      boxShadow: theme.shadow,
-                      color: theme.text
-                    }}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="value" 
-                    stroke="#3B82F6"
-                    strokeWidth={3}
-                    dot={{ r: 5, fill: '#3B82F6' }}
-                    activeDot={{ r: 7, fill: '#3B82F6' }}
-                    fill="url(#colorValue)"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
+            <HStack spacing={6}>
+              <Box position="relative">
+                <Input
+                  placeholder="Search here"
+                  pl={10}
+                  pr={4}
+                  bg="white"
+                  borderRadius="md"
+                  w="300px"
+                  _focus={{ shadow: 'md', borderColor: 'blue.500' }}
+                />
+                <Icon
+                  as={Search}
+                  position="absolute"
+                  left={3}
+                  top="50%"
+                  transform="translateY(-50%)"
+                  color="gray.400"
+                />
+              </Box>
 
-          <div className="rounded-lg border p-6 transition-all duration-200 hover:shadow-md" 
-               style={{ backgroundColor: theme.cardBg, borderColor: theme.border }}>
-            <div className="flex justify-between items-center mb-6">
-              <span className="font-medium" style={{ color: theme.text }}>Active Users</span>
-              <span className="font-medium" style={{ color: theme.activeColor }}>(+1051) than last week</span>
-            </div>
+              <Menu>
+                <MenuButton>
+                  <HStack spacing={3} bg="white" p={2} borderRadius="md" _hover={{ shadow: 'md' }} cursor="pointer">
+                    <Avatar size="sm" name="Zulkar Ahamed" bg="blue.500" />
+                    <VStack align="start" spacing={0}>
+                      <Text fontWeight="medium">Zulkar Ahamed</Text>
+                      <Text fontSize="sm" color="gray.500">
+                        Student
+                      </Text>
+                    </VStack>
+                    <Icon as={ChevronDown} color="gray.500" />
+                  </HStack>
+                </MenuButton>
+                <MenuList>
+                  <MenuItem cursor="pointer">Profile</MenuItem>
+                  <MenuItem cursor="pointer">Settings</MenuItem>
+                  <MenuItem color="red.500" cursor="pointer">
+                    Sign Out
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </HStack>
+          </Flex>
 
-            <div className="relative mb-6">
-              <div className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={pieData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={70}
-                      outerRadius={100}
-                      paddingAngle={3}
-                      dataKey="value"
+          <SimpleGrid columns={3} spacing={6} mb={8}>
+            <DailyActiveUser />
+            <DailyActiveUser />
+            <DailyActiveUser />
+          </SimpleGrid>
+
+          <SimpleGrid columns={2} spacing={6} mb={8}>
+            <Card variant="outline" bg="white" _hover={{ shadow: 'md' }} transition="all 0.2s" cursor="default">
+              <CardBody>
+                <Flex justify="space-between" mb={4}>
+                  <Text fontWeight="medium">User Activity</Text>
+                  <Menu>
+                    <MenuButton cursor="pointer">
+                      <HStack>
+                        <Text color="gray.500">Overall</Text>
+                        <Icon as={ChevronDown} color="gray.500" />
+                      </HStack>
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem cursor="pointer">Daily</MenuItem>
+                      <MenuItem cursor="pointer">Weekly</MenuItem>
+                      <MenuItem cursor="pointer">Monthly</MenuItem>
+                    </MenuList>
+                  </Menu>
+                </Flex>
+                <Box h="300px">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={data}>
+                      <defs>
+                        <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#3182CE" stopOpacity={0.1} />
+                          <stop offset="95%" stopColor="#3182CE" stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+                      <XAxis dataKey="name" stroke="#718096" />
+                      <YAxis stroke="#718096" />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: 'white',
+                          border: '1px solid #E2E8F0',
+                          borderRadius: '8px',
+                          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        }}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#3182CE"
+                        strokeWidth={2}
+                        dot={{ r: 4, fill: '#3182CE' }}
+                        activeDot={{ r: 6, fill: '#3182CE' }}
+                        fill="url(#colorValue)"
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </Box>
+              </CardBody>
+            </Card>
+
+            <Card variant="outline" bg="white" _hover={{ shadow: 'md' }} transition="all 0.2s" cursor="default">
+              <CardBody>
+                <VStack align="stretch" spacing={6}>
+                  <HStack justify="space-between">
+                    <Text fontWeight="medium">Active Users</Text>
+                    <Text color="green.500" fontWeight="medium">
+                      +4021
+                    </Text>
+                  </HStack>
+
+                  <Box position="relative" display="flex" justifyContent="center">
+                    <CircularProgress
+                      value={75}
+                      size="200px"
+                      thickness="8px"
+                      color="blue.400"
+                      trackColor="blue.50"
                     >
-                      {pieData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Pie>
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                <div className="text-4xl font-bold" style={{ color: theme.text }}>551</div>
-                <div className="text-sm" style={{ color: theme.textSecondary }}>TOTAL USERS</div>
-              </div>
-            </div>
+                      <CircularProgressLabel>
+                        <VStack spacing={0}>
+                          <Text fontSize="3xl" fontWeight="bold">
+                            75%
+                          </Text>
+                          <Text fontSize="sm" color="gray.500">
+                            Progress
+                          </Text>
+                        </VStack>
+                      </CircularProgressLabel>
+                    </CircularProgress>
+                  </Box>
 
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { color: '#EF4444', label: 'Staffs', value: '151' },
-                { color: '#22C55E', label: 'Students', value: '100' },
-                { color: '#3B82F6', label: 'Students', value: '100' },
-                { color: '#06B6D4', label: 'Students', value: '100' }
-              ].map((item, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
-                  <span className="text-sm" style={{ color: theme.text }}>{item.label}</span>
-                  <span className="text-sm font-bold" style={{ color: theme.text }}>{item.value}</span>
-                </div>
-              ))}
-            </div>
+                  <Box>
+                    <Text mb={4} fontWeight="medium">
+                      By Authentication Method
+                    </Text>
+                    <SimpleGrid columns={2} spacing={4}>
+                      <AuthenticationMethod icon={Database} label="Microsoft" value="100" />
+                      <AuthenticationMethod icon={Users} label="Internal" value="100" />
+                      <AuthenticationMethod icon={Mail} label="Email" value="100" />
+                    </SimpleGrid>
+                  </Box>
+                </VStack>
+              </CardBody>
+            </Card>
+          </SimpleGrid>
 
-            <div className="mt-6 space-y-4">
-              <h3 className="font-medium" style={{ color: theme.text }}>By Authentication Method</h3>
-              <div className="space-y-3">
-                <AuthMethod icon={Mail} label="Microsoft" value="100" />
-                <AuthMethod icon={Database} label="Internal" value="100" />
-                <AuthMethod icon={Mail} label="Gmail" value="100" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="rounded-lg border p-6 transition-all duration-200 hover:shadow-md" 
-             style={{ backgroundColor: theme.cardBg, borderColor: theme.border }}>
-          <div className="flex justify-between items-center mb-6">
-            <span className="font-medium" style={{ color: theme.text }}>Activity Log</span>
-            <Settings size={20} className="cursor-pointer" style={{ color: theme.textSecondary }} />
-          </div>
-          <div className="space-y-4">
-            <ActivityLogItem
-              icon={Trophy}
-              title="VIT5678 User id here permissions changed to admin by admin VIT345667"
-              description="last changed"
-              time="2 hrs ago"
-            />
-            <ActivityLogItem
-              icon={Users}
-              title="VIT2567 Successfully logged-in!"
-              description="last changed"
-              time="2 hrs ago"
-            />
-            <ActivityLogItem
-              icon={School}
-              title="VIT5678 User id here permissions changed to admin by admin VIT345667"
-              description="last changed"
-              time="2 hrs ago"
-            />
-            <ActivityLogItem
-              icon={Trophy}
-              title="VIT7865 Successfully logged-in!"
-              description="last changed"
-              time="2 hrs ago"
-            />
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </div>
+          <Card variant="outline" bg="white" _hover={{ shadow: 'md' }} transition="all 0.2s" cursor="default">
+            <CardBody>
+              <Flex justify="space-between" mb={6}>
+                <Text fontWeight="medium">Activity Log</Text>
+                <Icon as={Settings} cursor="pointer" color="gray.500" />
+              </Flex>
+              <VStack spacing={4} align="stretch">
+                <ActivityLogItem
+                  icon={Trophy}
+                  title="1st place in 'Chess'"
+                  description="John Doe won 1st place in 'Chess'"
+                  time="1 Day ago"
+                />
+                <ActivityLogItem
+                  icon={Users}
+                  title="Participated in 'Carrom'"
+                  description="Justin Lee participated in 'Carrom'"
+                  time="2 hours ago"
+                />
+                <ActivityLogItem
+                  icon={School}
+                  title="International conference in 'St.John School'"
+                  description="Justin Lee participated in International conference in 'St.John School'"
+                  time="3 minutes ago"
+                />
+              </VStack>
+            </CardBody>
+          </Card>
+        </Box>
+      </Flex>
+    </ChakraProvider>
   );
 }
+
+export default App;
