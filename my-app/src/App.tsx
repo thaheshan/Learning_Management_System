@@ -1,4 +1,3 @@
-// src/App.tsx
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import Dashboard from './components/Dashboard';

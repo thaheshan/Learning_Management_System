@@ -117,11 +117,9 @@ const Dashboard: React.FC<DashboardProps> = ({
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const textColor = useColorModeValue('gray.700', 'gray.200');
 
-  // State for time period selection
   const [selectedPeriod, setSelectedPeriod] = useState('Overall');
   const [dateRange, setDateRange] = useState('01 - 25 March, 2020');
 
-  // Time period options
   const timeOptions = [
     { 
       label: 'Overall', 
@@ -177,36 +175,30 @@ const Dashboard: React.FC<DashboardProps> = ({
     }
   ];
 
-  // Get current chart data based on selected period
   const getCurrentData = () => {
     const selected = timeOptions.find(opt => opt.label === selectedPeriod);
     return selected ? selected.data : timeOptions[0].data;
   };
 
-  // Handle period selection
   const handlePeriodSelect = (option: typeof timeOptions[0]) => {
     setSelectedPeriod(option.label);
     setDateRange(option.dateRange);
   };
 
-  // Enhanced sample data that matches the UI pattern
   const enhancedChartData = chartData.length > 0 ? chartData : getCurrentData();
 
-  // Enhanced pie data with authentication methods
   const enhancedPieData = pieData.length > 0 ? pieData : [
     { name: 'Staffs', value: 151, color: '#E53E3E' },
     { name: 'Students', value: 300, color: '#38A169' },
     { name: 'Others', value: 100, color: '#3182CE' }
   ];
 
-  // Updated Authentication methods data
   const authMethodsData = [
     { name: 'Microsoft', value: 100, color: '#0078D4', icon: '🏢' },
     { name: 'Internal', value: 100, color: '#38A169', icon: '🔐' },
     { name: 'Gmail', value: 100, color: '#EA4335', icon: '📧' }
   ];
 
-  // Custom tooltip component
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -231,7 +223,6 @@ const Dashboard: React.FC<DashboardProps> = ({
     return null;
   };
 
-  // Custom dot component for active points
   const CustomDot = (props: any) => {
     const { cx, cy, payload } = props;
     return (
@@ -353,9 +344,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         />
       </SimpleGrid>
 
-      {/* Charts Section */}
       <Grid templateColumns={{ base: "1fr", lg: "2fr 1fr" }} gap={6} mb={8}>
-        {/* Enhanced Area Chart with Dropdown */}
         <Box
           p={6}
           bg={bgColor}
@@ -370,7 +359,6 @@ const Dashboard: React.FC<DashboardProps> = ({
               <Text fontSize="sm" color="gray.500">{dateRange}</Text>
             </Box>
             
-            {/* Enhanced Dropdown Menu */}
             <Menu>
               <MenuButton
                 as={Button}
@@ -477,9 +465,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           </Box>
         </Box>
 
-        {/* Enhanced Right Side Panel with Active Users and Authentication Methods */}
         <VStack spacing={6} h="full">
-          {/* Active Users Pie Chart */}
           <Box
             p={6}
             bg={bgColor}
@@ -536,7 +522,6 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </Flex>
               </Box>
 
-              {/* Active Users Legend */}
               <VStack spacing={2} w="full">
                 {enhancedPieData.map((item, index) => (
                   <Flex key={index} justify="space-between" align="center" w="full" py={1}>
@@ -551,7 +536,6 @@ const Dashboard: React.FC<DashboardProps> = ({
             </VStack>
           </Box>
 
-          {/* By Authentication Method */}
           <Box
             p={6}
             bg={bgColor}
@@ -606,7 +590,6 @@ const Dashboard: React.FC<DashboardProps> = ({
         </VStack>
       </Grid>
 
-      {/* Enhanced Activity Log Section */}
       <Box
         p={6}
         bg={bgColor}
@@ -627,7 +610,6 @@ const Dashboard: React.FC<DashboardProps> = ({
           />
         </Flex>
         
-        {/* Scrollable Activity Log */}
         <Box
           maxH="400px"
           overflowY="auto"

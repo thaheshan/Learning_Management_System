@@ -1,4 +1,3 @@
-// src/utils/data.ts
 import { ChartDataPoint, PieDataPoint } from '../types';
 
 export const chartData: ChartDataPoint[] = [

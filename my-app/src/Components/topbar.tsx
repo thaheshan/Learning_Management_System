@@ -15,11 +15,12 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider
+  MenuDivider,
 } from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Search, Sun, Moon, Bell, LogOut, User, Settings as SettingsIcon } from 'lucide-react';
 import { FC } from 'react';
-import zuhar from '../zuhar.jpeg'; // Adjust the path as necessary
+import zuhar from '../zuhar.jpeg'; 
 
 interface TopBarProps {
   notifications: any;
@@ -31,6 +32,7 @@ const TopBar: FC<TopBarProps> = ({ notifications, setNotifications }) => {
   const bgColor = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const textColor = useColorModeValue('gray.700', 'gray.200');
+  const hoverBg = useColorModeValue('gray.100', 'gray.700');
 
   return (
     <Flex
@@ -47,32 +49,22 @@ const TopBar: FC<TopBarProps> = ({ notifications, setNotifications }) => {
       align="center"
       zIndex={10}
     >
-      {/* Left: Page title */}
       <Box>
         <Text fontSize="lg" fontWeight={600} color={textColor}>
           Dashboard
         </Text>
       </Box>
 
-      {/* Spacer */}
       <Spacer />
 
-      {/* Right Section */}
       <Flex align="center" gap={5} minW={0}>
-        {/* Search Input */}
         <InputGroup maxW="xs">
           <InputLeftElement pointerEvents="none">
             <Search size={16} aria-hidden="true" />
           </InputLeftElement>
-          <Input
-            placeholder="Search here"
-            size="sm"
-            rounded="md"
-            aria-label="Search input"
-          />
+          <Input placeholder="Search here" size="sm" rounded="md" aria-label="Search input" />
         </InputGroup>
 
-        {/* Notification Icon */}
         <Box position="relative">
           <IconButton
             aria-label="Notifications"
@@ -82,7 +74,7 @@ const TopBar: FC<TopBarProps> = ({ notifications, setNotifications }) => {
             borderRadius="full"
             color={useColorModeValue('gray.600', 'gray.400')}
             _hover={{
-              bg: useColorModeValue('gray.100', 'gray.700'),
+              bg: hoverBg,
               color: useColorModeValue('gray.800', 'gray.200'),
             }}
           />
@@ -106,7 +98,6 @@ const TopBar: FC<TopBarProps> = ({ notifications, setNotifications }) => {
           </Badge>
         </Box>
 
-        {/* Theme Toggle */}
         <IconButton
           aria-label="Toggle color mode"
           icon={colorMode === 'light' ? <Moon size={16} /> : <Sun size={16} />}
@@ -115,25 +106,24 @@ const TopBar: FC<TopBarProps> = ({ notifications, setNotifications }) => {
           size="sm"
         />
 
-        {/* Profile Dropdown */}
         <Box minW={0}>
           <Menu placement="bottom-end">
             <MenuButton
               as={Flex}
               align="center"
-              gap={2}
               cursor="pointer"
-              px={2}
+              px={3}          
               py={1}
               borderRadius="md"
-              _hover={{ bg: useColorModeValue('gray.100', 'gray.700') }}
+              _hover={{ bg: hoverBg }}
+              gap={2}
+              userSelect="none"
+              whiteSpace="nowrap" 
+              minW="fit-content"  
+              maxW="200px"        
             >
-              <Avatar
-                size="sm"
-                name="Zuhar Ahamed"
-                src={zuhar}
-              />
-           
+              <Avatar size="sm" name="Zuhar Ahamed" src={zuhar} />
+              <ChevronDownIcon boxSize={4} color={useColorModeValue('gray.600', 'gray.300')} />
             </MenuButton>
             <MenuList minW="150px" zIndex={20}>
               <MenuItem icon={<User size={16} />}>Profile</MenuItem>

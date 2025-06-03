@@ -13,19 +13,28 @@ import {
   Database,
   LayoutDashboard,
   Library,
+  LucideIcon,
   LogOut,
   Settings,
   Store,
   Users
 } from 'lucide-react';
-import { SidebarItemProps } from '../types';
 
+
+
+
+export interface SidebarItemProps {
+  icon: LucideIcon;
+  text: string;
+  key: string;
+  active: boolean;
+  onClick: () => void;
+}
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (key: string) => void;
 }
 
-// Logo Component (Bigger size)
 const Logo = () => {
   return (
     <Box py={4} display="flex" justifyContent="center">
@@ -116,12 +125,10 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
       zIndex={10}
     >
       <Flex direction="column" h="full">
-        {/* Logo */}
         <Box px={{ base: 2, md: 4 }}>
           <Logo />
         </Box>
 
-        {/* Navigation Items */}
         <Box px={{ base: 2, md: 4 }} flex={1} overflowY="auto">
           <Stack spacing={1}>
             {sidebarItems.map(item => (
@@ -136,7 +143,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           </Stack>
         </Box>
 
-        {/* Footer Section */}
         <Box px={{ base: 2, md: 4 }} pb={4}>
           <Stack spacing={4}>
             <Box
