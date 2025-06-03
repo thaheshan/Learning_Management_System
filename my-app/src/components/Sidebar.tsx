@@ -1,27 +1,22 @@
-import { 
-  Box, 
-  Button, 
-  Flex, 
-  HStack, 
-  Heading, 
-  Stack, 
-  Text, 
+import {
+  Box,
+  Button,
+  Flex,
+  Stack,
+  Text,
   useColorMode,
   useColorModeValue,
-  IconButton,
-  Badge,
   Image
 } from '@chakra-ui/react';
-import { 
-  ClipboardList, 
-  Database, 
-  LayoutDashboard, 
-  Library, 
-  LogOut, 
-  Settings, 
-  Store, 
-  Users,
-  Bell
+import {
+  ClipboardList,
+  Database,
+  LayoutDashboard,
+  Library,
+  LogOut,
+  Settings,
+  Store,
+  Users
 } from 'lucide-react';
 import { SidebarItemProps } from '../types';
 
@@ -30,27 +25,27 @@ interface SidebarProps {
   setActiveTab: (key: string) => void;
 }
 
-// Logo Component
+// Logo Component (Bigger size)
 const Logo = () => {
   return (
-    <Box display="flex" alignItems="center" justifyContent="center" w="full" py={4}>
-      <Image 
-        src="../SCHOOL LOGO.png" 
-        alt="School Logo" 
-        w={{ base: "60px", md: "120px" }}
-        h={{ base: "60px", md: "120px" }}
+    <Box py={4} display="flex" justifyContent="center">
+      <Image
+        src="../SCHOOL LOGO.png"
+        alt="School Logo"
+        w={{ base: '120px', md: '200px' }}
+        h={{ base: '120px', md: '200px' }}
         objectFit="contain"
         fallback={
-          <Box 
-            w={{ base: "60px", md: "120px" }}
-            h={{ base: "60px", md: "120px" }}
+          <Box
+            w={{ base: '120px', md: '200px' }}
+            h={{ base: '120px', md: '200px' }}
             bg="gray.200"
             borderRadius="md"
             display="flex"
             alignItems="center"
             justifyContent="center"
           >
-            <Text fontSize={{ base: "xs", md: "sm" }} color="gray.500">
+            <Text fontSize={{ base: 'sm', md: 'md' }} color="gray.500">
               Logo
             </Text>
           </Box>
@@ -65,12 +60,11 @@ const SidebarItem = ({ icon: Icon, text, key, active, onClick }: SidebarItemProp
   const activeBg = useColorModeValue('blue.50', 'blue.900');
   const activeColor = useColorModeValue('blue.600', 'blue.200');
   const textColor = useColorModeValue('gray.600', 'gray.300');
-  
+
   return (
     <Button
       variant="ghost"
       justifyContent="flex-start"
-      alignItems="center"
       width="full"
       py={3}
       px={3}
@@ -83,7 +77,7 @@ const SidebarItem = ({ icon: Icon, text, key, active, onClick }: SidebarItemProp
       _hover={{ bg: bgColor }}
       onClick={onClick}
     >
-      <Text display={{ base: "none", md: "block" }}>{text}</Text>
+      <Text display={{ base: 'none', md: 'block' }}>{text}</Text>
       {active && (
         <Box ml="auto" w="6px" h="6px" borderRadius="full" bg={activeColor} />
       )}
@@ -97,7 +91,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const textColor = useColorModeValue('gray.700', 'gray.200');
   const statsBgColor = useColorModeValue('gray.50', 'gray.700');
-  
+
   const sidebarItems = [
     { icon: LayoutDashboard, text: 'Dashboard', key: 'dashboard' },
     { icon: Users, text: 'User Management', key: 'users' },
@@ -114,68 +108,24 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
       position="fixed"
       left={0}
       top={0}
-      w={{ base: "16", sm: "20", md: "64" }}
+      w={{ base: '16', sm: '20', md: '64' }}
       h="100vh"
       borderRightWidth="1px"
       borderColor={borderColor}
       bg={bgColor}
       zIndex={10}
-      overflow="hidden"
     >
-      <Flex direction="column" h="full" position="relative">
-        {/* Notification Bell - Top Left Corner */}
-        <Box 
-          position="absolute" 
-          top={3} 
-          left={3} 
-          zIndex={20}
-          display={{ base: "block", md: "block" }}
-        >
-          <Box position="relative">
-            <IconButton
-              aria-label="Notifications"
-              icon={<Bell size={16} />}
-              variant="ghost"
-              size="sm"
-              borderRadius="full"
-              color={useColorModeValue('gray.600', 'gray.400')}
-              _hover={{ 
-                bg: useColorModeValue('gray.100', 'gray.700'),
-                color: useColorModeValue('gray.800', 'gray.200')
-              }}
-            />
-            {/* Notification Badge */}
-            <Badge
-              position="absolute"
-              top="-2px"
-              right="-2px"
-              colorScheme="red"
-              borderRadius="full"
-              fontSize="2xs"
-              minW="16px"
-              h="16px"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              fontWeight="bold"
-              border="1px solid"
-              borderColor={bgColor}
-            >
-              3
-            </Badge>
-          </Box>
-        </Box>
-
-        {/* Logo Section - Centered and Larger */}
-        <Box pt={6} pb={4}>
+      <Flex direction="column" h="full">
+        {/* Logo */}
+        <Box px={{ base: 2, md: 4 }}>
           <Logo />
         </Box>
-        
+
         {/* Navigation Items */}
-        <Box px={{ base: 2, md: 4 }} flex={1}>
-          <Stack spacing={1} overflow="auto">
+        <Box px={{ base: 2, md: 4 }} flex={1} overflowY="auto">
+          <Stack spacing={1}>
             {sidebarItems.map(item => (
-              <SidebarItem 
+              <SidebarItem
                 key={item.key}
                 icon={item.icon}
                 text={item.text}
@@ -185,17 +135,17 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             ))}
           </Stack>
         </Box>
-        
+
         {/* Footer Section */}
         <Box px={{ base: 2, md: 4 }} pb={4}>
           <Stack spacing={4}>
-            <Box 
-              p={3} 
-              borderRadius="xl" 
-              bg={statsBgColor} 
-              borderWidth="1px" 
+            <Box
+              p={3}
+              borderRadius="xl"
+              bg={statsBgColor}
+              borderWidth="1px"
               borderColor={borderColor}
-              display={{ base: "none", md: "block" }}
+              display={{ base: 'none', md: 'block' }}
             >
               <Text fontWeight="medium" mb={2} color={textColor} fontSize="sm">
                 Quick Stats
@@ -205,17 +155,21 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
                   <Text fontSize="xs" color={useColorModeValue('gray.600', 'gray.400')}>
                     Online Users
                   </Text>
-                  <Text fontSize="xs" fontWeight="bold" color="green.500">127</Text>
+                  <Text fontSize="xs" fontWeight="bold" color="green.500">
+                    127
+                  </Text>
                 </Flex>
                 <Flex justify="space-between">
                   <Text fontSize="xs" color={useColorModeValue('gray.600', 'gray.400')}>
                     System Health
                   </Text>
-                  <Text fontSize="xs" fontWeight="bold" color="green.500">98%</Text>
+                  <Text fontSize="xs" fontWeight="bold" color="green.500">
+                    98%
+                  </Text>
                 </Flex>
               </Stack>
             </Box>
-            
+
             <Button
               leftIcon={<LogOut size={18} />}
               colorScheme="red"
@@ -225,7 +179,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
               size="sm"
               fontSize="sm"
             >
-              <Text display={{ base: "none", md: "block" }}>Sign Out</Text>
+              <Text display={{ base: 'none', md: 'block' }}>Sign Out</Text>
             </Button>
           </Stack>
         </Box>
