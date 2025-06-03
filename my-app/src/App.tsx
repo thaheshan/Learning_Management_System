@@ -1,7 +1,7 @@
 import { ChakraProvider, Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import Dashboard from './components/Dashboard';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
 import { chartData, defaultNotifications, pieData, recentUsers } from './utils/data';
@@ -25,7 +25,7 @@ function App() {
           />
         )}
         
-        <Footer />
+        {/* <Footer /> */}
       </Box>
     </ChakraProvider>
   );
